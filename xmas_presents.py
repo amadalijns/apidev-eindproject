@@ -1,5 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlalchemy.orm import Session
+from typing import List
 
 import crud
 import models
@@ -25,16 +26,20 @@ def get_db():
         db.close()
 
 
+# ------------------------------ POST Functions ------------------------------
+
 # Endpoint om een nieuw cadeau toe te voegen
 @app.post("/cadeau", response_model=schemas.Present)
 def add_present(present: schemas.addPresent, db: Session = Depends(get_db)):
 
-    # Controleren of cadeau al bestaat op basis van de naam
+    # Controleren of het cadeau al bestaat op basis van de naam
     db_present = crud.get_present_by_name(db, name=present.name)
     if db_present:
         raise HTTPException(status_code=400, detail="Een cadeau met deze naam bestaat al!")
     return crud.add_present(db, present)
 
+
+# ------------------------------ GET Functions ------------------------------
 
 # Endpoint om alle cadeaus op te halen
 @app.get("/cadeaus", response_model=list[schemas.Present])
@@ -51,13 +56,18 @@ def read_present(present_id: int, db: Session = Depends(get_db)):
     return present
 
 
-# # Endpoint om een specifiek cadeau op te halen op basis van category
-# @app.get("/cadeaus/{category}", response_model=schemas.Present)
-# def get_presents_by_category(category: str, db: Session = Depends(get_db)):
-#     return crud.get_presents_by_category(db=db, category=category)
+# Endpoint om een specifiek cadeau op te halen op basis van category
+@app.get("/cadeaus/{category:str}", response_model=schemas.PresentNameList)
+def get_present_names_by_category(category: str, db: Session = Depends(get_db)):
+    names = crud.get_present_names_by_category(db=db, category=category)
+    if not names:
+        raise HTTPException(status_code=404, detail=f"Geen cadeaus gevonden met categorie {category}")
+    return {"names": names}
 
 
-# Endpoint om cadeau bij te werken
+# ------------------------------ PUT Functions ------------------------------
+
+# Endpoint om een cadeau bij te werken
 @app.put("/cadeaus/{present_id}")
 def update_present(present_id: int, present: schemas.PresentUpdate, db: Session = Depends(get_db)):
 
@@ -66,6 +76,8 @@ def update_present(present_id: int, present: schemas.PresentUpdate, db: Session 
         raise HTTPException(status_code=404, detail=f"Cadeau {present_id} is niet gevonden!")
     return db_present
 
+
+# ------------------------------ DELETE Functions ------------------------------
 
 # Endpoint om een cadeau te verwijderen op basis van ID
 @app.delete("/cadeaus/{present_id}")
