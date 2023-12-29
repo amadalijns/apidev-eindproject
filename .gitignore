@@ -1,0 +1,24 @@
+# created by virtualenv automatically
+.idea
+.ipynb_checkpoints
+.mypy_cache
+.vscode
+pycache
+.pytest_cache
+htmlcov
+dist
+site
+.coverage
+coverage.xml
+.netlify
+log.txt
+Pipfile.lock
+env3.*
+env
+docs_build
+venv
+docs.zip
+archive.zip
+test_main.http
+sqlitedb
+*.db

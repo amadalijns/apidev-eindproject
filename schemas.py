@@ -3,8 +3,13 @@ from pydantic import BaseModel
 
 # Basismodel voor een taak met optionele naam en een voltooide vlag
 class PresentBase(BaseModel):
-    name: str | None = None  # Naam van de taak, kan niet optioneel zijn
-    completed: bool  # Veld dat aangeeft of de taak is voltooid of niet
+    name: str  # Naam van het cadeau
+    category: str  # Category van het cadeau
+
+
+class PresentUpdate(PresentBase):
+    name: str | None = None
+    category: str | None = None
 
 
 # Model voor het maken van een nieuwe taak, overerft van TaskBase
