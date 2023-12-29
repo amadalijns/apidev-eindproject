@@ -57,12 +57,12 @@ def read_present(present_id: int, db: Session = Depends(get_db)):
 
 
 # Endpoint om een specifiek cadeau op te halen op basis van category
-@app.get("/cadeaus/{category:str}", response_model=schemas.PresentNameList)
-def get_present_names_by_category(category: str, db: Session = Depends(get_db)):
-    names = crud.get_present_names_by_category(db=db, category=category)
-    if not names:
-        raise HTTPException(status_code=404, detail=f"Geen cadeaus gevonden met categorie {category}")
-    return {"names": names}
+# @app.get("/cadeaus/{category:str}", response_model=schemas.PresentNameList)
+# def get_present_names_by_category(category: str, db: Session = Depends(get_db)):
+#     names = crud.get_present_names_by_category(db=db, category=category)
+#     if not names:
+#         raise HTTPException(status_code=404, detail=f"Geen cadeaus gevonden met categorie {category}")
+#     return {"names": names}
 
 
 # ------------------------------ PUT Functions ------------------------------
