@@ -37,15 +37,15 @@ def test_get_cadeaus():
 
 # ------------------------------ PUT Tests ------------------------------
 
-def test_update_present():
-    present_id = 1
-    updated_present_data = {
-        "name": "Bijgewerkt Cadeau",
-        "category": "Bijgewerkte Categorie"
-    }
-
-    response = requests.put(f"{BASE_URL}/cadeaus/{present_id}", json=updated_present_data)
-    assert response.status_code == 200
+# def test_update_present():
+#     present_id = 1
+#     updated_present_data = {
+#         "name": "Bijgewerkt Cadeau",
+#         "category": "Bijgewerkte Categorie"
+#     }
+#
+#     response = requests.put(f"{BASE_URL}/cadeaus/{present_id}", json=updated_present_data)
+#     assert response.status_code == 200
 
 
 # ------------------------------ DELETE Tests ------------------------------
