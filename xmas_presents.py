@@ -83,3 +83,8 @@ def update_present(present_id: int, present: schemas.PresentUpdate, db: Session 
 @app.delete("/cadeaus/{present_id}")
 def delete_present(present_id: int, db: Session = Depends(get_db)):
     return crud.delete_present_by_id(db, present_id=present_id)
+
+
+@app.post("/users", response_model=schemas.UserCreate)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    return crud.create_user(db=db, user=user)

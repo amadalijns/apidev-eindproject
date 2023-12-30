@@ -42,3 +42,9 @@ class PresentNameList(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+# Model voor het maken van een nieuwe gebruiker
+class UserCreate(BaseModel):
+    username: str
+    password: str

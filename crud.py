@@ -1,7 +1,9 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 import models
 import schemas
+import auth
 
 
 # ------------------------------ GET Functions ------------------------------
@@ -60,3 +62,14 @@ def delete_present_by_id(db: Session, present_id: int):
         db.commit()
         return {"message": f"Cadeau {present_id} is verwijderd!"}
     return {"message": f"Cadeau {present_id} niet gevonden!"}
+
+
+# ------------------------------ CREATE USER Functions ------------------------------
+
+def create_user(db: Session, user: schemas.UserCreate):
+    hashed_password = auth.get_password_hash(user.password)
+    db_user = models.User(username=user.username, hashed_password=hashed_password)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
