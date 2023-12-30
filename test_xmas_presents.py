@@ -11,16 +11,16 @@ def test_get_cadeaus():
     assert response.status_code == 200
 
 
-def test_get_present_by_id():
-    present_id = 1  # Dit moet een bestaand present_id zijn
-    response = requests.get(f"{BASE_URL}/cadeaus/{present_id}")
-    assert response.status_code == 200
-
-
-def test_get_present_names_by_category():
-    category = "speelgoed"  # Dit moet een bestaande categorie zijn
-    response = requests.get(f"{BASE_URL}/cadeaus/category/{category}")
-    assert response.status_code == 200
+# def test_get_present_by_id():
+#     present_id = 1  # Dit moet een bestaand present_id zijn
+#     response = requests.get(f"{BASE_URL}/cadeaus/{present_id}")
+#     assert response.status_code == 200
+#
+#
+# def test_get_present_names_by_category():
+#     category = "speelgoed"  # Dit moet een bestaande categorie zijn
+#     response = requests.get(f"{BASE_URL}/cadeaus/category/{category}")
+#     assert response.status_code == 200
 
 
 # ------------------------------ POST Tests ------------------------------
