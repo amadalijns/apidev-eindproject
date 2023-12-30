@@ -10,6 +10,11 @@ def test_delete_all_present():
     assert response.status_code == 200
 
 
+def test_delete_all_users():
+    response = requests.delete(f"{BASE_URL}/users")
+    assert response.status_code == 200
+
+
 # ------------------------------ POST Tests ------------------------------
 
 def test_add_present():
@@ -60,4 +65,14 @@ def test_delete_present():
     present_id = 1
 
     response = requests.delete(f"{BASE_URL}/cadeaus/{present_id}")
+    assert response.status_code == 200
+
+
+# ------------------------------ USER Tests ------------------------------
+def test_create_new_user():
+    user_data = {
+        "email": "test@mail.com",
+        "password": "test"
+    }
+    response = requests.post(f"{BASE_URL}/users", json=user_data)
     assert response.status_code == 200

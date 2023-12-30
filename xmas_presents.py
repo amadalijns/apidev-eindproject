@@ -1,10 +1,12 @@
-from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import List
 
 import crud
 import models
 import schemas
+import auth
 from database import SessionLocal, engine
 import os
 
@@ -24,6 +26,9 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 # ------------------------------ POST Functions ------------------------------
@@ -79,19 +84,21 @@ def update_present(present_id: int, present: schemas.PresentUpdate, db: Session 
 
 # Endpoint om een cadeau te verwijderen op basis van ID
 @app.delete("/cadeaus/{present_id}")
-def delete_present(present_id: int, db: Session = Depends(get_db)):
+def delete_present(present_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     return crud.delete_present_by_id(db, present_id=present_id)
 
 
 # Endpoint om alle cadeaus te verwijderen
 @app.delete("/cadeaus", response_model=str)
-def delete_all_presents(db: Session = Depends(get_db)):
+def delete_all_presents(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     crud.delete_all_presents(db)
     return "Alle cadeaus zijn verwijderd!"
 
 
 # ------------------------------ USER Functions ------------------------------
-@app.post("/users/", response_model=schemas.User)
+
+# Nieuwe user aanmaken
+@app.post("/users", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
@@ -99,7 +106,27 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
 
 
+# Alle gebruikers verwijderen
 @app.delete("/users", response_model=str)
-def delete_all_users(db: Session = Depends(get_db)):
+def delete_all_users(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):  # BEVEILIGD
     crud.delete_all_users(db)
     return "Alle gebruikers zijn verwijderd!"
+
+
+# ------------------------------ oAuth Functions ------------------------------
+@app.post("/token")
+def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    # Proberen om de user te authentiseren
+    user = auth.authenticate_user(db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=401,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    # Add the JWT case sub with the subject(user)
+    access_token = auth.create_access_token(
+        data={"sub": user.email}
+    )
+    # Return JWT als bearer token om in de headers geplaatst te worden
+    return {"access_token": access_token, "token_type": "bearer"}
