@@ -16,6 +16,16 @@ def get_access_token(username: str, password: str):
     return response.json()["access_token"]
 
 
+# Maak een nieuwe gebruiker
+def test_create_new_user():
+    user_data = {
+        "email": "test-username",
+        "password": "test-password"
+    }
+    response = requests.post(f"{BASE_URL}/users", json=user_data)
+    assert response.status_code == 200
+
+
 # ------------------------------ DELETE Tests ------------------------------
 
 # Verwijder alle cadeaus
@@ -34,20 +44,6 @@ def test_delete_all_present():
     assert response.status_code == 200
 
 
-# Verwijder alle gebruikers
-def test_delete_all_users():
-    username = "test-username"
-    password = "test-password"
-
-    # Genereer een access token
-    access_token = get_access_token(username, password)
-
-    # Voer de DELETE-request uit met het gegenereerde token
-    headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.delete(f"{BASE_URL}/users", headers=headers)
-    assert response.status_code == 200
-
-
 # ------------------------------ POST Tests ------------------------------
 
 # Maak een nieuw cadeau
@@ -58,16 +54,6 @@ def test_add_present():
     }
 
     response = requests.post(f"{BASE_URL}/cadeau", json=present_data)
-    assert response.status_code == 200
-
-
-# Maak een nieuwe gebruiker
-def test_create_new_user():
-    user_data = {
-        "email": "test-username",
-        "password": "test-password"
-    }
-    response = requests.post(f"{BASE_URL}/users", json=user_data)
     assert response.status_code == 200
 
 
@@ -118,4 +104,18 @@ def test_delete_present():
     present_id = 1
 
     response = requests.delete(f"{BASE_URL}/cadeaus/{present_id}", headers=headers)
+    assert response.status_code == 200
+
+
+# Verwijder alle gebruikers
+def test_delete_all_users():
+    username = "test-username"
+    password = "test-password"
+
+    # Genereer een access token
+    access_token = get_access_token(username, password)
+
+    # Voer de DELETE-request uit met het gegenereerde token
+    headers = {"Authorization": f"Bearer {access_token}"}
+    response = requests.delete(f"{BASE_URL}/users", headers=headers)
     assert response.status_code == 200
