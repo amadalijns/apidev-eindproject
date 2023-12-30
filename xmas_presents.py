@@ -85,6 +85,15 @@ def delete_present(present_id: int, db: Session = Depends(get_db)):
     return crud.delete_present_by_id(db, present_id=present_id)
 
 
+@app.delete("/cadeaus", response_model=str)
+def delete_all_presents(db: Session = Depends(get_db)):
+    crud.delete_all_presents(db)
+    return "All presents are deleted!"
+
+
+# ------------------------------ USER Functions ------------------------------
+
+
 @app.post("/users", response_model=schemas.UserCreate)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)

@@ -64,6 +64,11 @@ def delete_present_by_id(db: Session, present_id: int):
     return {"message": f"Cadeau {present_id} niet gevonden!"}
 
 
+def delete_all_presents(db: Session):
+    db.query(models.Present).delete()
+    db.commit()
+
+
 # ------------------------------ CREATE USER Functions ------------------------------
 
 def create_user(db: Session, user: schemas.UserCreate):
