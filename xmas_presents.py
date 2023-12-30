@@ -10,9 +10,11 @@ import auth
 from database import SessionLocal, engine
 import os
 
+# Kijkt of de db file aanwezig is, zo niet wordt deze aangemaakt
 if not os.path.exists('./sqlitedb'):
     os.makedirs('./sqlitedb')
 
+# Maakt een nieuwe FastAPI instance
 app = FastAPI()
 
 # Creëer de database tabellen
@@ -28,6 +30,7 @@ def get_db():
         db.close()
 
 
+# Definieert oAuth bearer scheme
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
@@ -36,6 +39,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 # Endpoint om een nieuw cadeau toe te voegen
 @app.post("/cadeau", response_model=schemas.Present)
 def add_present(present: schemas.AddPresent, db: Session = Depends(get_db)):
+
     # Controleren of het cadeau al bestaat op basis van de naam
     db_present = crud.get_present_by_name(db, name=present.name)
     if db_present:
@@ -106,7 +110,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
 
 
-# Alle gebruikers verwijderen
+# Alle users verwijderen
 @app.delete("/users", response_model=str)
 def delete_all_users(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):  # BEVEILIGD
     crud.delete_all_users(db)
@@ -114,9 +118,11 @@ def delete_all_users(db: Session = Depends(get_db), token: str = Depends(oauth2_
 
 
 # ------------------------------ oAuth Functions ------------------------------
+
+# Endpoint voor het ophalen van de access token
 @app.post("/token")
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    # Proberen om de user te authentiseren
+    # Authenticate user
     user = auth.authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -124,9 +130,9 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    # Add the JWT case sub with the subject(user)
+
+    # Maak nieuwe token en return
     access_token = auth.create_access_token(
         data={"sub": user.email}
     )
-    # Return JWT als bearer token om in de headers geplaatst te worden
     return {"access_token": access_token, "token_type": "bearer"}
