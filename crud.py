@@ -22,8 +22,8 @@ def get_present_by_name(db: Session, name: str):
 
 
 # Functie om een cadeau op te halen op basis van category
-# def get_present_names_by_category(db: Session, category: str):
-#     return db.query(models.Present.name).filter(models.Present.category == category).all()
+def get_present_names_by_category(db: Session, category: str):
+    return db.query(models.Present).filter(models.Present.category == category).all()
 
 
 # ------------------------------ POST Functions ------------------------------
