@@ -28,7 +28,7 @@ def test_create_new_user():
 
 # ------------------------------ DELETE Tests ------------------------------
 
-# Verwijder alle cadeaus
+# Verwijder alle cadeaus zodat er geen conflicten kunnen zijn in de db
 def test_delete_all_present():
     username = "test-username"
     password = "test-password"
