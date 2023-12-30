@@ -84,13 +84,13 @@ def update_present(present_id: int, present: schemas.PresentUpdate, db: Session 
 
 # Endpoint om een cadeau te verwijderen op basis van ID
 @app.delete("/cadeaus/{present_id}")
-def delete_present(present_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def delete_present(present_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):  # BEVEILIGD
     return crud.delete_present_by_id(db, present_id=present_id)
 
 
 # Endpoint om alle cadeaus te verwijderen
 @app.delete("/cadeaus", response_model=str)
-def delete_all_presents(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def delete_all_presents(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):  # BEVEILIGD
     crud.delete_all_presents(db)
     return "Alle cadeaus zijn verwijderd!"
 
