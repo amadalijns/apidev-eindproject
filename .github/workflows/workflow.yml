@@ -10,6 +10,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v1
 
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Install requests
+        run: pip install requests
+
       - name: Run tests
         run: pytest test_xmas_presents.py
 
