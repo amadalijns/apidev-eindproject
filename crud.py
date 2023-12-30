@@ -60,10 +60,3 @@ def delete_present_by_id(db: Session, present_id: int):
         db.commit()
         return {"message": f"Cadeau {present_id} is verwijderd!"}
     return {"message": f"Cadeau {present_id} niet gevonden!"}
-
-
-# Functie om alle cadeaus te verwijderen
-def delete_all_presents(db: Session):
-    db.query(models.Present).delete()
-    db.commit()
-    return {"message": "Alle cadeaus zijn verwijderd!"}

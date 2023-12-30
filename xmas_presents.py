@@ -83,9 +83,3 @@ def update_present(present_id: int, present: schemas.PresentUpdate, db: Session 
 @app.delete("/cadeaus/{present_id}")
 def delete_present(present_id: int, db: Session = Depends(get_db)):
     return crud.delete_present_by_id(db, present_id=present_id)
-
-
-# Endpoint om alle cadeaus te verwijderen
-@app.delete("/cadeaus")
-def delete_presents(db: Session = Depends(get_db)):
-    return crud.delete_all_presents(db)
