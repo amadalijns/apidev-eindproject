@@ -88,3 +88,9 @@ def delete_present(present_id: int, db: Session = Depends(get_db)):
 @app.post("/users", response_model=schemas.UserCreate)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
+
+
+@app.delete("/users", response_model=str)
+def delete_all_users(db: Session = Depends(get_db)):
+    crud.delete_all_users(db)
+    return "All users are deleted"
