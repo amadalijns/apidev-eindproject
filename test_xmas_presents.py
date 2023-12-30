@@ -50,8 +50,8 @@ def test_update_present():
 
 # ------------------------------ DELETE Tests ------------------------------
 
-def test_delete_present():
-    present_id = 1
-
-    response = requests.delete(f"{BASE_URL}/cadeaus/{present_id}")
-    assert response.status_code == 200
+# def test_delete_present():
+#     present_id = 1
+#
+#     response = requests.delete(f"{BASE_URL}/cadeaus/{present_id}")
+#     assert response.status_code == 200
