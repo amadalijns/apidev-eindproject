@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+ apidev-eindproject-service:
+  image: tukke/apidev-eindproject
+  ports:
+    - "8000:8000"
+  volumes:
+    - sqlite_apidev-eindproject_volume:/code/sqlitedb
+
+volumes:
+  sqlite_apidev-eindproject_volume:
