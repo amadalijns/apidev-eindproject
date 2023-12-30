@@ -27,7 +27,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest
+          pytest test_xmas_presents.py
 
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
