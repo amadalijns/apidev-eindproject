@@ -1,34 +1,33 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from typing import List
 
 
-# Basismodel voor een cadeau met optionele naam en category
+# Basismodel voor een cadeau
 class PresentBase(BaseModel):
     name: str  # Naam van het cadeau
-    category: str  # Category van het cadeau
+    category: str  # Categorie van het cadeau
 
 
-# Model voor het maken van een nieuwe cadeau, overerft van PresentBase
-class addPresent(PresentBase):
+# Model voor het maken van een nieuwe cadeau, erft over van PresentBase
+class AddPresent(PresentBase):
     pass
 
 
-# Model voor het updaten van een cadeau, overerft van PresentBase
+# Model voor het updaten van een cadeau, erft over van PresentBase
 class PresentUpdate(PresentBase):
     name: str | None = None
     category: str | None = None
 
 
-# Model voor het teruggestuurde cadeau met ID, erft van PresentBase
+# Model voor het cadeau met ID, erft van PresentBase
 class Present(PresentBase):
     id: int  # ID van het cadeau
 
-    # Configuratie om te kunnen werken met SQLAlchemy ORM
     class Config:
         orm_mode = True
 
 
-# Model voor het teruggestuurde lijst van cadeau-namen
+# Model voor de lijst van namen
 class PresentName(BaseModel):
     name: str
 
@@ -36,7 +35,7 @@ class PresentName(BaseModel):
         orm_mode = True
 
 
-# Model voor het teruggestuurde lijst van cadeau-namen
+# Model voor de lijst van namen
 class PresentNameList(BaseModel):
     names: List[PresentName]
 
@@ -48,3 +47,11 @@ class PresentNameList(BaseModel):
 class UserCreate(BaseModel):
     username: str
     password: str
+
+
+class User(BaseModel):
+    id: int
+    username: str
+
+    class Config:
+        orm_mode = True

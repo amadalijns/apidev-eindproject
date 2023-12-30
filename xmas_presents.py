@@ -30,7 +30,7 @@ def get_db():
 
 # Endpoint om een nieuw cadeau toe te voegen
 @app.post("/cadeau", response_model=schemas.Present)
-def add_present(present: schemas.addPresent, db: Session = Depends(get_db)):
+def add_present(present: schemas.AddPresent, db: Session = Depends(get_db)):
     # Controleren of het cadeau al bestaat op basis van de naam
     db_present = crud.get_present_by_name(db, name=present.name)
     if db_present:
@@ -91,8 +91,6 @@ def delete_all_presents(db: Session = Depends(get_db)):
 
 
 # ------------------------------ USER Functions ------------------------------
-
-
 @app.post("/users", response_model=schemas.UserCreate)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
