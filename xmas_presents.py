@@ -60,7 +60,7 @@ def read_present(present_id: int, db: Session = Depends(get_db)):
 def get_present_names_by_category(category: str, db: Session = Depends(get_db)):
     present = crud.get_present_names_by_category(db=db, category=category)
     if not present:
-        raise HTTPException(status_code=404, detail=f"Geen cadeaus gevonden met categorie {category}")
+        raise HTTPException(status_code=404, detail=f"Geen cadeaus gevonden in de categorie {category}")
     return present
 
 
@@ -83,10 +83,11 @@ def delete_present(present_id: int, db: Session = Depends(get_db)):
     return crud.delete_present_by_id(db, present_id=present_id)
 
 
+# Endpoint om alle cadeaus te verwijderen
 @app.delete("/cadeaus", response_model=str)
 def delete_all_presents(db: Session = Depends(get_db)):
     crud.delete_all_presents(db)
-    return "All presents are deleted!"
+    return "Alle cadeaus zijn verwijderd!"
 
 
 # ------------------------------ USER Functions ------------------------------
@@ -100,4 +101,4 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 @app.delete("/users", response_model=str)
 def delete_all_users(db: Session = Depends(get_db)):
     crud.delete_all_users(db)
-    return "All users are deleted"
+    return "Alle gebruikers zijn verwijderd!"
