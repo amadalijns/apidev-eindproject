@@ -8,8 +8,8 @@ import schemas
 from database import SessionLocal, engine
 import os
 
-if not os.path.exists('.\sqlitedb'):
-    os.makedirs('.\sqlitedb')
+if not os.path.exists('./sqlitedb'):
+    os.makedirs('./sqlitedb')
 
 app = FastAPI()
 
@@ -31,7 +31,6 @@ def get_db():
 # Endpoint om een nieuw cadeau toe te voegen
 @app.post("/cadeau", response_model=schemas.Present)
 def add_present(present: schemas.addPresent, db: Session = Depends(get_db)):
-
     # Controleren of het cadeau al bestaat op basis van de naam
     db_present = crud.get_present_by_name(db, name=present.name)
     if db_present:
@@ -70,7 +69,6 @@ def get_present_names_by_category(category: str, db: Session = Depends(get_db)):
 # Endpoint om een cadeau bij te werken
 @app.put("/cadeaus/{present_id}")
 def update_present(present_id: int, present: schemas.PresentUpdate, db: Session = Depends(get_db)):
-
     db_present = crud.update_present(db, present_id, present)
     if db_present is None:
         raise HTTPException(status_code=404, detail=f"Cadeau {present_id} is niet gevonden!")
