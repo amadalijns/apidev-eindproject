@@ -44,14 +44,16 @@ class PresentNameList(BaseModel):
 
 
 # Model voor het maken van een nieuwe gebruiker
-class UserCreate(BaseModel):
-    username: str
+class UserBase(BaseModel):
+    email: str
+
+
+class UserCreate(UserBase):
     password: str
 
 
-class User(BaseModel):
+class User(UserBase):
     id: int
-    username: str
 
     class Config:
         orm_mode = True

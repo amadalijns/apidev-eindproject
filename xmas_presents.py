@@ -91,8 +91,11 @@ def delete_all_presents(db: Session = Depends(get_db)):
 
 
 # ------------------------------ USER Functions ------------------------------
-@app.post("/users", response_model=schemas.UserCreate)
+@app.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if db_user:
+        raise HTTPException(status_code=400, detail="E-mail is al geregistreerd!")
     return crud.create_user(db=db, user=user)
 
 
