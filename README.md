@@ -20,6 +20,9 @@ password: admin
 ### Extra uitbreidingen
 Deze API heb ik een mooie en professionele styling gegeven zodat het voor gebruikers makkelijk is deze API te gebruiken. Dit alles wordt gehost op Netlify via de volgende link:
 https://apidev-eindproject-am.netlify.app/
+<br>
+<br>
+Ook heb ik tests uitgevoerd op alle GET en niet-GET endpoints en deze laten runnen via GitHub Actions.
 
 ### Aantoonbare werking
 Toon alle cadeaus:<br>
