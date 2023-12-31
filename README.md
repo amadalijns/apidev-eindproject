@@ -12,7 +12,7 @@ Door gebruik te maken van Pydantic-modellen zorgt de API voor de validatie van g
 https://apidev-eindproject-service-amadalijns.cloud.okteto.net/cadeaus
 
 ### Inloggegevens
-username: admin
+username: admin<br>
 password: admin
 
 (zelf een user aanmaken is ook een optie)
