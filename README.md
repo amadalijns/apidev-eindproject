@@ -11,6 +11,12 @@ Door gebruik te maken van Pydantic-modellen zorgt de API voor de validatie van g
 ### Link naar hosted API
 https://apidev-eindproject-service-amadalijns.cloud.okteto.net/cadeaus
 
+### Inloggegevens
+username: admin
+password: admin
+
+(zelf een user aanmaken is ook een optie)
+
 ### Extra uitbreidingen
 Deze API heb ik een mooie en professionele styling gegeven zodat het voor gebruikers makkelijk is deze API te gebruiken. Dit alles wordt gehost op Netlify via de volgende link:
 https://apidev-eindproject-am.netlify.app/
