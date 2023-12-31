@@ -47,7 +47,7 @@ Maak een nieuwe user:<br>
 ![alt tekst](img/postNewUser.png)
 
 ### Volledige OpenAPI Docs
-![alt tekst](img/docsOverview.png)
+![alt tekst](img/docsOverview.png)<br>
 ![alt tekst](img/docsPostCadeau.png)
 ![alt tekst](img/docsGetCadeaus.png)
 ![alt tekst](img/docsDelCadeau.png)
