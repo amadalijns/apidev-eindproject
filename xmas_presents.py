@@ -1,5 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -16,6 +17,15 @@ if not os.path.exists('./sqlitedb'):
 
 # Maakt een nieuwe FastAPI instance
 app = FastAPI()
+
+# CORS instellingen
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Creëer de database tabellen
 models.Base.metadata.create_all(bind=engine)
