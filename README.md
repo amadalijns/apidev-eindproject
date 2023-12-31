@@ -34,5 +34,8 @@ Pas een bestaand cadeau aan:<br>
 Verwijder een bestaand cadeau:<br>
 ![alt tekst](img/delPresent.png)
 
+Verwijder alle cadeaus:<br>
+![alt tekst](img/delAllPresents.png)
+
 Maak een nieuwe user:<br>
 ![alt tekst](img/postNewUser.png)
