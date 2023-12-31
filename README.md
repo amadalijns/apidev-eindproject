@@ -14,3 +14,5 @@ https://apidev-eindproject-service-amadalijns.cloud.okteto.net/cadeaus
 ### Extra uitbreidingen
 Deze API heb ik een mooie en professionele styling gegeven zodat het voor gebruikers makkelijk is deze API te gebruiken. Dit alles wordt gehost op Netlify via de volgende link:
 https://65915e776ca12d0b8896bb5f--thunderous-boba-4b1e87.netlify.app/
+
+### Aantoonbare werking
