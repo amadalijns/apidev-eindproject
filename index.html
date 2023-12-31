@@ -1,17 +1,80 @@
 <html xmlns:x-on="http://www.w3.org/1999/xhtml">
 <head>
-    <script defer src="https://unpkg.com/alpinejs@2.8.2/dist/alpine.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
 </head>
 <body>
     <div x-data="{
         presentData: null,
-        async getData() {
-            const response = await fetch('http://127.0.0.1:8000/cadeaus');
-            this.presentData = await response.json();
+        selectedId: null,
+        selectedCategory: null,
+        async fetchData() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/cadeaus');
+                this.presentData = await response.json();
+            } catch (error) {
+                this.presentData = null;
+                alert('Cadeaus ophalen mislukt!');
+            }
+        },
+        async fetchById() {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/cadeaus/${this.selectedId}`);
+                this.presentData = await response.json();
+            } catch (error) {
+                this.presentData = null;
+                alert(`ID ${this.selectedId} ophalen mislukt!`);
+            }
+        },
+        async fetchByCategory() {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/cadeaus/category/${this.selectedCategory}`);
+                this.presentData = await response.json();
+            } catch (error) {
+                this.presentData = null;
+                alert(`Categorie ${this.selectedCategory} ophalen mislukt!`);
+            }
         }
     }">
-        <button x-on:click="getData">Haal alle cadeaus op</button>
-        Data returned: <strong x-text="presentData.name">Placeholder</strong>
+        <button x-on:click="fetchData">Haal alle cadeaus op</button>
+
+        <!-- Invoerveld voor ID -->
+        <label for="cadeauId">Voer cadeau ID in:</label>
+        <input x-model="selectedId" type="number" id="cadeauId">
+
+        <!-- Knop om cadeau op te halen op basis van ID -->
+        <button x-on:click="fetchById">Haal cadeau op met ID</button>
+
+        <!-- Invoerveld voor categorie -->
+        <label for="cadeauCategory">Zoek op categorie:</label>
+        <input x-model="selectedCategory" type="text" id="cadeauCategory">
+
+        <!-- Knop om cadeaus op te halen op basis van categorie -->
+        <button x-on:click="fetchByCategory">Zoek op categorie</button>
+
+        <!-- Toon alle cadeaus of enkel het geselecteerde cadeau -->
+        <div x-show="presentData !== null">
+            <template x-if="Array.isArray(presentData)">
+                <template x-for="(present, index) in presentData" :key="index">
+                    <div>
+                        <p><strong>Naam:</strong> <span x-text="present.name"></span></p>
+                        <p><strong>Categorie:</strong> <span x-text="present.category"></span></p>
+                        <p><strong>ID:</strong> <span x-text="present.id"></span></p>
+                        <hr>
+                    </div>
+                </template>
+            </template>
+            <template x-if="!Array.isArray(presentData)">
+                <div>
+                    <p><strong>Naam:</strong> <span x-text="presentData.name"></span></p>
+                    <p><strong>Categorie:</strong> <span x-text="presentData.category"></span></p>
+                    <p><strong>ID:</strong> <span x-text="presentData.id"></span></p>
+                    <hr>
+                </div>
+            </template>
+            <template x-if="presentData === null || presentData.length === 0">
+                <p>Geen cadeaus gevonden!</p>
+            </template>
+        </div>
     </div>
 </body>
 </html>
