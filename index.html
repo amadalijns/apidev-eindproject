@@ -1,5 +1,6 @@
 <html xmlns:x-on="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="style.css">
     <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
 </head>
 <body>
@@ -13,7 +14,7 @@
         },
         async fetchData() {
             try {
-                const response = await fetch('http://127.0.0.1:8000/cadeaus');
+                const response = await fetch('https://apidev-eindproject-service-amadalijns.cloud.okteto.net/cadeaus');
                 this.presentData = await response.json();
             } catch (error) {
                 this.presentData = null;
@@ -22,7 +23,7 @@
         },
         async fetchById() {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/cadeaus/${this.selectedId}`);
+                const response = await fetch(`https://apidev-eindproject-service-amadalijns.cloud.okteto.net/cadeaus/${this.selectedId}`);
                 this.presentData = await response.json();
             } catch (error) {
                 this.presentData = null;
@@ -31,7 +32,7 @@
         },
         async fetchByCategory() {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/cadeaus/category/${this.selectedCategory}`);
+                const response = await fetch(`https://apidev-eindproject-service-amadalijns.cloud.okteto.net/category/${this.selectedCategory}`);
                 this.presentData = await response.json();
             } catch (error) {
                 this.presentData = null;
@@ -40,7 +41,7 @@
         },
         async addPresent() {
             try {
-                const response = await fetch('http://127.0.0.1:8000/cadeau', {
+                const response = await fetch('https://apidev-eindproject-service-amadalijns.cloud.okteto.net/cadeau', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
