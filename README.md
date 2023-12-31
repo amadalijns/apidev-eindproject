@@ -55,7 +55,7 @@ Maak een nieuwe user:<br>
 ![alt tekst](img/docsGetCadeaus.png)
 ![alt tekst](img/docsPutCadeaus.png)
 ![alt tekst](img/docsDelCadeaus.png)
-![alt tekst](img/docsGetCadeauCategory.png)
+![alt tekst](img/docsGetCadeausCategory.png)
 ![alt tekst](img/docsPostUsers.png)
 ![alt tekst](img/docsDelUsers.png)
 ![alt tekst](img/docsPostToken.png)
