@@ -1,5 +1,6 @@
 # Eindproject API Development
 ## Arne Madalijns - r0937871
+
 ### Gekozen thema
 Om toch een beetje in de kerstsfeer te blijven heb ik gekozen voor een API die alle pakjes van de Kerstman opslaat.
 ### Uitleg over mijn API
@@ -9,3 +10,7 @@ Door gebruik te maken van Pydantic-modellen zorgt de API voor de validatie van g
 
 ### Link naar hosted API
 https://apidev-eindproject-service-amadalijns.cloud.okteto.net/cadeaus
+
+### Extra uitbreidingen
+Deze API heb ik een mooie en professionele styling gegeven zodat het voor gebruikers makkelijk is deze API te gebruiken. Dit alles wordt gehost op Netlify via de volgende link:
+https://65915e776ca12d0b8896bb5f--thunderous-boba-4b1e87.netlify.app/
