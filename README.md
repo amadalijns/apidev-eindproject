@@ -16,3 +16,20 @@ Deze API heb ik een mooie en professionele styling gegeven zodat het voor gebrui
 https://65915e776ca12d0b8896bb5f--thunderous-boba-4b1e87.netlify.app/
 
 ### Aantoonbare werking
+Toon alle cadeaus:<br>
+![alt tekst](img/getAllPresents.png)
+
+Toon cadeau via ID:<br>
+![alt tekst](img/getPresentByID.png)
+
+Toon cadeau via categorie:<br>
+![alt tekst](img/getPresentsByCategory.png)
+
+Maak een nieuw cadeau aan:<br>
+![alt tekst](img/postNewPresent.png)
+
+Pas een bestaand cadeau aan:<br>
+![alt tekst](img/putPresent.png)
+
+Maak een nieuwe user:<br>
+![alt tekst](img/postNewUser.png)
