@@ -46,8 +46,7 @@ Verwijder alle cadeaus:<br>
 Maak een nieuwe user:<br>
 ![alt tekst](img/postNewUser.png)
 
-
-###Volledige OpenAPI Docs
+### Volledige OpenAPI Docs
 ![alt tekst](img/docsOverview.png)
 ![alt tekst](img/docsPostCadeau.png)
 ![alt tekst](img/docsGetCadeaus.png)
