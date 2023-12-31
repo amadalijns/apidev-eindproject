@@ -7,6 +7,10 @@
         presentData: null,
         selectedId: null,
         selectedCategory: null,
+        newPresent: {
+            name: '',
+            category: '',
+        },
         async fetchData() {
             try {
                 const response = await fetch('http://127.0.0.1:8000/cadeaus');
@@ -33,6 +37,27 @@
                 this.presentData = null;
                 alert(`Categorie ${this.selectedCategory} ophalen mislukt!`);
             }
+        },
+        async addPresent() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/cadeau', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(this.newPresent),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Toevoegen van cadeau mislukt!');
+                }
+
+                // Herlaad de gegevens om het nieuwe cadeau weer te geven
+                await this.fetchData();
+            } catch (error) {
+                console.error(error);
+                alert('Er is een fout opgetreden bij het toevoegen van een nieuw cadeau.');
+            }
         }
     }">
         <button x-on:click="fetchData">Haal alle cadeaus op</button>
@@ -50,6 +75,17 @@
 
         <!-- Knop om cadeaus op te halen op basis van categorie -->
         <button x-on:click="fetchByCategory">Zoek op categorie</button>
+
+        <!-- Voeg een nieuw cadeau toe -->
+        <div>
+            <label for="newPresentName">Naam nieuw cadeau:</label>
+            <input x-model="newPresent.name" type="text" id="newPresentName">
+
+            <label for="newPresentCategory">Categorie nieuw cadeau:</label>
+            <input x-model="newPresent.category" type="text" id="newPresentCategory">
+
+            <button x-on:click="addPresent">Voeg nieuw cadeau toe</button>
+        </div>
 
         <!-- Toon alle cadeaus of enkel het geselecteerde cadeau -->
         <div x-show="presentData !== null">
