@@ -10,6 +10,9 @@ Door gebruik te maken van Pydantic-modellen zorgt de API voor de validatie van g
 
 ### Link naar hosted API
 https://apidev-eindproject-service-amadalijns.cloud.okteto.net/cadeaus
+<br>
+<br>
+Ik heb al 6 items in de databse geplaats zodat de API snel en makkelijk getest kan worden. Let wel op bij het ingegeven van de categorie is het belangrijk dat de categorie exact overgenomen wordt!
 
 ### Inloggegevens
 username: admin<br>
